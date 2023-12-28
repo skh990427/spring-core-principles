@@ -15,6 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+    //@Bean memberService -> new MemoryMemberRepository()
+    //@Bean orderService -> new MemoryMemberRepository(), new RateDiscountPolicy()
+    //MemoryMemberRepository 두번 호출되는데... 싱글톤이 깨지는건 아닌가?
+
     @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
