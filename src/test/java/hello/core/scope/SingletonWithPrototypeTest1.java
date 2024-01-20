@@ -2,6 +2,7 @@ package hello.core.scope;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.inject.Provider;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -44,14 +45,14 @@ public class SingletonWithPrototypeTest1 {
     @Scope("singleton")
     static class ClientBean {
 
-        private final ObjectProvider<PrototypeBean> prototypeBeanProvider;
+        private final Provider<PrototypeBean> prototypeBeanProvider;
 
-        public ClientBean(ObjectProvider<PrototypeBean> prototypeBeanProvider) {
+        public ClientBean(Provider<PrototypeBean> prototypeBeanProvider) {
             this.prototypeBeanProvider = prototypeBeanProvider;
         }
 
         public int logic() {
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
